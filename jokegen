@@ -1,0 +1,32 @@
+jokegenerator.js
+----------------
+import React, {Component } from 'react';
+export default class JokeGenerator extends Component{
+    constructor(){
+        super();
+        this.state = { joke: ""};
+        this.fetchJoke = this.fetchJoke.bind(this);
+    }
+
+    fetchJoke(){
+        fetch("https://v2.jokeapi.dev/joke/Programming?type=single")
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            this.setState({ joke : json.joke });
+        });
+    }
+    render(){
+        return(
+            <div
+            className='ui raised very padded text container segment'
+            style={{ marginTop : "80px"}}>
+                <div className='ui header' style={{ textAlign: "center"}}>
+                    <button className='huge ui teal button' onClick={this.fetchJoke}>Generate Joke</button>
+                    <h2>{this.state.joke}</h2>
+                </div>
+            </div>
+        );
+    }
+}
+
